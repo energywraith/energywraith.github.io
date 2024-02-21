@@ -1,5 +1,5 @@
 ---
-title: "Darkest Online"
+title: "Darkrest Online"
 description: "Popular game server website featuring SEO, account management, CMS."
 slug: "darkrest-online"
 link: "http://test.darkrest.online/"
