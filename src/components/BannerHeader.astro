@@ -1,0 +1,24 @@
+<h1 class="min-h-[1em] font-pattaya text-7xl tracking-wider" id="banner-header">
+</h1>
+
+<script>
+  import Typewriter from "typewriter-effect/dist/core";
+  const app = document.getElementById("banner-header");
+
+  const typewriter = new Typewriter(app, {
+    delay: 75,
+  });
+
+  typewriter
+    .pauseFor(500)
+    .typeString("Hey, I am ")
+    .pauseFor(300)
+    .typeString("<strong class='text-pink-600'>Adbd</strong>")
+    .deleteChars(2)
+    .typeString("<strong class='text-pink-600'>am!</strong>")
+    .pauseFor(850)
+    .callFunction(function (state) {
+      state.elements.cursor.style.display = "none";
+    })
+    .start();
+</script>

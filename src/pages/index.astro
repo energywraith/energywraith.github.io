@@ -8,6 +8,7 @@ import Link from "@/components/shared/Link.astro";
 import convertAsteriskToStrongTag from "@/utils/convertAsteriskToStrongTag";
 import presentation from "@/data/presentation";
 import Socials from "@/components/Socials.astro";
+import BannerHeader from "@/components/BannerHeader.astro";
 
 const posts = (await getCollection("posts")).reverse();
 
@@ -22,10 +23,7 @@ const works = (await getCollection("works")).filter(
       class="flex flex-col items-start gap-6 md:flex-row md:items-center"
     >
       <div class="flex w-full flex-1 flex-col gap-6">
-        <h1
-          class="font-pattaya text-7xl tracking-wider"
-          set:html={convertAsteriskToStrongTag(presentation.title)}
-        />
+        <BannerHeader />
 
         <h2
           class="w-auto text-xl leading-6 md:max-w-xl"
