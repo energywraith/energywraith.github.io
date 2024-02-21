@@ -1,24 +1,43 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+import { buttonVariants } from "@/utils/linkVariants";
+import type { ButtonVariant } from "@/utils/linkVariants";
 
 type Props = HTMLAttributes<"a"> & {
-  label: string;
+  icon?: string;
   isUnderline?: boolean;
+  displayAsButton?: boolean;
+  buttonVariant?: ButtonVariant;
 };
 
-const { label, isUnderline, ...props } = Astro.props;
+const {
+  isUnderline,
+  icon,
+  displayAsButton,
+  buttonVariant = "default",
+  ...props
+} = Astro.props;
 ---
 
 <a
   href={props.href}
-  class:list={{
-    ["hover:text-neutral-100 cursor-pointer"]: true,
-    ["underline decoration-dashed underline-offset-8"]: isUnderline,
-  }}
+  class:list={[
+    props.class,
+    {
+      ["cursor-pointer"]: true,
+      ["flex justify-center items-center gap-x-2"]: !!icon,
+      ["hover:text-neutral-300"]: !displayAsButton,
+      ["rounded-lg py-2 px-4 text-center font-semibold"]: displayAsButton,
+      [buttonVariants[buttonVariant]]: displayAsButton,
+      ["underline decoration-2 underline-offset-4"]: isUnderline,
+    },
+  ]}
   {...props}
   rel="noreferrer"
   target="_blank"
 >
-  {label}
-  <span class="sr-only">{label} link</span>
+  {icon && <Icon name={icon} class="h-6 w-6" />}
+  <slot />
+  <span class="sr-only"><slot /> link</span>
 </a>
