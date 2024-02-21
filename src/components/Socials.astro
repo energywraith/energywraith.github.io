@@ -1,0 +1,17 @@
+---
+import Link from "@/components/shared/Link.astro";
+import { Icon } from "astro-icon/components";
+import presentation from "@/data/presentation";
+---
+
+<ul class="flex flex-wrap gap-4">
+  {
+    Object.values(presentation.socials).map((social) => (
+      <li>
+        <Link href={social.link} class="w-fit">
+          <Icon name={social.icon} class="h-10 w-10" />
+        </Link>
+      </li>
+    ))
+  }
+</ul>

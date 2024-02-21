@@ -1,71 +1,104 @@
 ---
 import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 
 import Layout from "@/layouts/Layout.astro";
-import PostCard from "@/components/PostCard.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Link from "@/components/shared/Link.astro";
 import convertAsteriskToStrongTag from "@/utils/convertAsteriskToStrongTag";
-
 import presentation from "@/data/presentation";
-import projects from "@/data/projects";
+import Socials from "@/components/Socials.astro";
 
-const posts = (await getCollection("posts")).sort(function (first, second) {
-  return second.data.publishedAt.getTime() - first.data.publishedAt.getTime();
-});
+const posts = (await getCollection("posts")).reverse();
+
+const works = (await getCollection("works")).filter(
+  (work) => work.data.featured
+);
 ---
 
 <Layout>
-  <main class="flex flex-col gap-20">
+  <main class="flex flex-col gap-12 py-6">
     <article
-      class="flex flex-col gap-8 md:flex-row-reverse md:justify-end md:gap-12"
+      class="flex flex-col items-start gap-6 md:flex-row md:items-center"
     >
-      <div class="flex flex-col gap-8">
-        <h1 class="text-3xl text-neutral-100">
-          {presentation.title}
-        </h1>
+      <div class="flex w-full flex-1 flex-col gap-6">
+        <h1
+          class="font-pattaya text-7xl tracking-wider"
+          set:html={convertAsteriskToStrongTag(presentation.title)}
+        />
 
         <h2
-          class="w-auto max-w-[60ch] leading-6"
+          class="w-auto text-xl leading-6 md:max-w-xl"
           set:html={convertAsteriskToStrongTag(presentation.description)}
         />
+
+        <Socials />
       </div>
+      <Icon name="smile" class="h-auto w-1/5 rotate-[30deg]" />
     </article>
 
-    <article class="flex flex-col gap-8">
+    <article class="flex flex-col gap-6">
       <header class="flex w-full flex-row justify-between gap-2">
-        <h3 class="text-lg text-neutral-100">Latest posts</h3>
-        <Link href="/posts" label="See all posts" isUnderline target="_self" />
+        <h3 class="font-pattaya text-4xl">Works</h3>
+        <Link
+          href="/works"
+          target="_self"
+          displayAsButton
+          buttonVariant="accent"
+        >
+          See all of <span class="underline decoration-2 underline-offset-4"
+            >my works</span
+          >!
+        </Link>
       </header>
-      <section class="flex flex-col gap-4 md:flex-row md:flex-wrap">
+      <section class="flex flex-wrap gap-x-4 gap-y-8">
         {
-          posts.length !== 0 &&
-            posts
-              .slice(0, 2)
-              .map((post) => (
-                <PostCard
-                  publishedAt={post.data.publishedAt}
-                  title={post.data.title}
-                  description={post.data.description}
-                  slug={post.slug}
-                />
-              ))
+          works.length !== 0 &&
+            works.map(
+              (project) => project.data.featured && <ProjectCard {...project} />
+            )
         }
       </section>
     </article>
 
-    <article class="flex flex-col gap-8">
+    <article class="flex flex-col gap-6">
       <header class="flex w-full flex-row justify-between gap-2">
-        <h3 class="text-lg text-neutral-100">
-          Selected projects ({projects.length})
-        </h3>
+        <h3 class="font-pattaya text-4xl">Posts</h3>
+        <Link
+          href="/posts"
+          target="_self"
+          displayAsButton
+          buttonVariant="accent"
+        >
+          See all of <span class="underline decoration-2 underline-offset-4"
+            >my posts</span
+          >!
+        </Link>
       </header>
 
-      <section class="flex flex-col gap-4">
-        {
-          projects.length !== 0 &&
-            projects.map((project) => <ProjectCard {...project} />)
-        }
+      <section>
+        <ul class="flex flex-col gap-4">
+          {
+            posts.length !== 0 &&
+              posts.map((post) => (
+                <li>
+                  <Link
+                    href={`/posts/${post.slug}`}
+                    target="_self"
+                    class="flex items-center gap-x-2 font-semibold"
+                  >
+                    <span class="font-bold text-pink-600">#{post.data.id}</span>
+                    <span class="underline decoration-2 underline-offset-4">
+                      {post.data.title}
+                    </span>
+                    {post.data.tags.map((tag) => (
+                      <span class="text-sm font-normal">{`#${tag}`}</span>
+                    ))}
+                  </Link>
+                </li>
+              ))
+          }
+        </ul>
       </section>
     </article>
   </main>
