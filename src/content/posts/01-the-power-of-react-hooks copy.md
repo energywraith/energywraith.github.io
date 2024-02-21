@@ -1,9 +1,11 @@
 ---
-title: "The Power Of React Hooks"
+id: 1
+title: "Drugie Życie - How I have helped local community with designs? "
 publishedAt: 2023-05-24
 description: "Lorem ipsum dolor sit amet consectetur et ultrices blandit neque ege"
 slug: "the-power-of-react-hooks"
 isPublish: true
+tags: ['figma', 'ui/ux', 'design']
 ---
 
 ## Vocesque meum remis est neque Neptunus monte
