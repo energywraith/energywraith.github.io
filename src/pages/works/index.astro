@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/shared/Link.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import presentation from "@/data/presentation";
+
+const works = await getCollection("works");
+---
+
+<Layout title="Adam Jałocha - Works">
+  <main class="flex flex-col gap-6">
+    <article class="flex flex-col gap-6">
+      <header class="flex w-full flex-row justify-between gap-2">
+        <h3
+          class="text-base font-bold underline decoration-2 underline-offset-8"
+        >
+          🚀 Works
+        </h3>
+      </header>
+      <section class="flex flex-wrap gap-x-4 gap-y-8">
+        {
+          works.length !== 0 &&
+            works.map((project) => <ProjectCard {...project} isWorksPage />)
+        }
+      </section>
+      <Link
+        icon="github"
+        href={presentation.socials.github.link}
+        displayAsButton
+      >
+        Follow me on <span class="underline underline-offset-4">Github</span> to
+        see more!
+      </Link>
+    </article>
+  </main>
+</Layout>
