@@ -3,9 +3,11 @@
 
 <script>
   import Typewriter from "typewriter-effect/dist/core";
-  const app = document.getElementById("banner-header");
+  import type { TypewriterFunctionState } from "@/utils/types/typewriter";
 
-  const typewriter = new Typewriter(app, {
+  const bannerHeader = document.getElementById("banner-header");
+
+  const typewriter = new Typewriter(bannerHeader, {
     delay: 75,
   });
 
@@ -17,7 +19,7 @@
     .deleteChars(2)
     .typeString("<strong class='text-pink-600'>am!</strong>")
     .pauseFor(850)
-    .callFunction(function (state) {
+    .callFunction(function (state: TypewriterFunctionState) {
       state.elements.cursor.style.display = "none";
     })
     .start();
