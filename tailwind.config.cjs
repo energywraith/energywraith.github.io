@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+        sans: ["var(--font-rubik)", ...defaultTheme.fontFamily.sans],
+        pattaya: ["var(--font-pattaya)", ...defaultTheme.fontFamily.sans],
       },
     },
   },

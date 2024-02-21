@@ -41,7 +41,7 @@ const openGraph = {
     }}
     extend={{
       link: [
-        { rel: "icon", href: "/favicon.svg" },
+        { rel: "icon", href: "/favicon.ico" },
         { rel: "sitemap", href: "/sitemap-index.xml" },
       ],
       meta: [
@@ -57,12 +57,46 @@ const openGraph = {
         preload: false,
         display: "swap",
         selector: "html",
-        name: "Inter",
+        name: "Rubik",
         fallback: "sans-serif",
-        cssVariable: "font-inter",
+        cssVariable: "font-rubik",
         googleFontsURL:
-          "https://fonts.googleapis.com/css2?family=Inter&display=swap",
+          "https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap",
+      },
+      {
+        src: [],
+        preload: false,
+        display: "swap",
+        selector: "html",
+        name: "Pattaya",
+        fallback: "sans-serif",
+        cssVariable: "font-pattaya",
+        googleFontsURL:
+          "https://fonts.googleapis.com/css2?family=Pattaya:wght@400&display=swap",
       },
     ]}
   />
+  <script is:inline>
+    const theme = (() => {
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("theme")
+      ) {
+        return localStorage.getItem("theme");
+      }
+
+      return "dark";
+    })();
+
+    if (theme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+
+    window.localStorage.setItem("theme", theme);
+  </script>
+  <script>
+    import "@/scripts/menu.ts";
+  </script>
 </head>
