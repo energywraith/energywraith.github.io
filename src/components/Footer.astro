@@ -1,0 +1,20 @@
+---
+import Link from "@/components/shared/Link.astro";
+import presentation from "@/data/presentation";
+---
+
+<footer class="flex flex-col gap-y-2 pt-6 text-center text-sm font-bold">
+  <h4 class="text-white">
+    <span class="text-pink-600">Get in Touch</span> with me!
+  </h4>
+  <ul class="flex justify-center gap-x-3">
+    {
+      Object.values(presentation.socials).map((social) => (
+        <li>
+          <Link href={social.link}>{social.label}</Link>
+        </li>
+      ))
+    }
+  </ul>
+  <h5 class="mt-6 py-6 text-neutral-300">© 2024 Adam Jałocha - Made with ♥</h5>
+</footer>
