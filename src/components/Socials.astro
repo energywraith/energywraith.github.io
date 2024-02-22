@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 import presentation from "@/data/presentation";
 ---
 
-<ul class="flex flex-wrap gap-4">
+<ul class="relative flex w-fit flex-wrap gap-4">
   {
     Object.values(presentation.socials).map((social) => (
       <li>
@@ -14,4 +14,12 @@ import presentation from "@/data/presentation";
       </li>
     ))
   }
+  <div
+    class="absolute left-full flex translate-x-1 translate-y-3 flex-col text-pink-600"
+  >
+    <Icon name="curved-arrow" class="h-10 w-10 -rotate-90" />
+    <h3 class="whitespace-nowrap font-pattaya text-xl">
+      You can find me there!
+    </h3>
+  </div>
 </ul>
