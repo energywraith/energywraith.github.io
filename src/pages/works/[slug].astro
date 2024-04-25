@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
-import { SITE_URL } from "@/data/config";
 
 export async function getStaticPaths() {
   const works = await getCollection("works");

@@ -5,6 +5,8 @@ slug: "drugie-zycie"
 splashImage: "/drugie-zycie/splash.webp"
 link: "/works/drugie-zycie"
 tags: ['figma', 'ui/ux', 'design']
+showAsPost: true
+headline: "Drugie Życie - How I have helped local community with designs?"
 featured: true
 ---
 

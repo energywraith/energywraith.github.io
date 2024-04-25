@@ -5,10 +5,12 @@ const postsCollection = defineCollection({
   schema: z.object({
     id: z.number(),
     title: z.string(),
+    link: z.string().optional(),
     publishedAt: z.date(),
     description: z.string(),
     isPublish: z.boolean(),
     isDraft: z.boolean().default(false),
+    headline: z.string().optional(),
     tags: z.array(z.string()),
   }),
 });
@@ -22,6 +24,8 @@ const worksCollection = defineCollection({
     splashImage: z.string(),
     featured: z.boolean().default(false),
     tags: z.array(z.string()),
+    showAsPost: z.boolean().default(false),
+    headline: z.string().optional(),
   }),
 });
 

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
 
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
@@ -15,6 +16,9 @@ const posts = (await getCollection("posts")).reverse();
 const works = (await getCollection("works")).filter(
   (work) => work.data.featured
 );
+
+const workPosts = works.filter((work) => work.data.showAsPost);
+const allPosts = [...posts, ...workPosts];
 ---
 
 <Layout>
@@ -77,17 +81,19 @@ const works = (await getCollection("works")).filter(
       <section>
         <ul class="flex flex-col gap-4">
           {
-            posts.length !== 0 &&
-              posts.map((post) => (
+            allPosts.length !== 0 &&
+              allPosts.map((post, index) => (
                 <li>
                   <Link
-                    href={`/posts/${post.slug}`}
+                    href={post.data.link || `/posts/${post.slug}`}
                     target="_self"
                     class="flex items-center gap-x-2 font-semibold"
                   >
-                    <span class="font-bold text-pink-600">#{post.data.id}</span>
+                    <span class="font-bold text-pink-600">
+                      #{allPosts.length - index}
+                    </span>
                     <span class="underline decoration-2 underline-offset-4">
-                      {post.data.title}
+                      {post.data.headline || post.data.title}
                     </span>
                     {post.data.tags.map((tag) => (
                       <span class="text-sm font-normal">{`#${tag}`}</span>
