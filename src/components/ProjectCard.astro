@@ -6,11 +6,11 @@ type Props = {
   isWorksPage?: boolean;
 } & CollectionEntry<"works">;
 
-const { slug, data, isWorksPage } = Astro.props;
-const { title, description, link, splashImage, tags } = data;
+const { data, isWorksPage } = Astro.props;
+const { title, description, link, splashImage, tags, showAsPost } = data;
 
-const href = isWorksPage ? `/works/${slug}` : link;
-const target = isWorksPage ? "_self" : "_blank";
+const href = link;
+const target = showAsPost ? "_self" : "_blank";
 ---
 
 <article class="flex flex-1 basis-[32%] flex-col items-start">

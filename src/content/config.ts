@@ -12,6 +12,7 @@ const postsCollection = defineCollection({
     isDraft: z.boolean().default(false),
     headline: z.string().optional(),
     tags: z.array(z.string()),
+    splashImage: z.string(),
   }),
 });
 
