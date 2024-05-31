@@ -1,8 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
+import PostLayout from "@/layouts/PostLayout.astro";
 
 export async function getStaticPaths() {
   const works = await getCollection("works");
@@ -18,37 +17,6 @@ type Props = {
 };
 
 const { work } = Astro.props;
-const { title, description, splashImage } = work.data;
-
-const { Content } = await work.render();
 ---
 
-<Layout
-  title={`Adam Jałocha - ${title}`}
-  description={description}
-  og={{
-    title,
-    description,
-    type: "website",
-    image: splashImage,
-    alt: title,
-  }}
->
-  <main class="post mx-auto flex w-full max-w-prose flex-col gap-6">
-    <header role="presentation" class="flex flex-col gap-y-2">
-      <Image
-        src={splashImage}
-        class="w-full rounded border border-neutral-600 object-cover object-top"
-        alt={`${title} Splash Image`}
-        width="256"
-        height="144"
-      />
-      <h1 class="mt-4 text-center font-pattaya text-4xl">
-        {title}
-      </h1>
-      <p class="text-center italic">{description}</p>
-    </header>
-
-    <Content />
-  </main>
-</Layout>
+<PostLayout post={work} />
