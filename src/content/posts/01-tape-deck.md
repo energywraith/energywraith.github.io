@@ -127,8 +127,8 @@ Nonetheless, enjoy the sound of **good ol' cassette tape**! :)
 
 ## Emotion98.3
 
-Have you already seen my project **Emotion98.3**? It is a web app that allows you to enter the **realm** of the **80s vibe**!
-I warmly **invite** you to check it out! I couldn't resist and have played **Emotion98.3 radio** on that HI-FI system. **Take a look** at the **video** below!
+Have you already seen my project **[Emotion98.3](https://emotion.miami/)**? It is a web app that allows you to enter the **realm** of the **80s vibe**!
+I warmly **invite** you to [check it out](https://emotion.miami/)! I couldn't resist and have played **Emotion98.3 radio** on that HI-FI system. **Take a look** at the **video** below!
 
 <video controls>
   <source src="/tape-deck/emotion.mp4" type="video/mp4">
