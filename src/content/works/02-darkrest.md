@@ -1,7 +1,6 @@
 ---
 title: "Darkrest Online"
 description: "Popular game server website featuring SEO, account management, CMS."
-slug: "darkrest-online"
 link: "https://darkrest.online/"
 splashImage: "/darkrest.webp"
 featured: true
