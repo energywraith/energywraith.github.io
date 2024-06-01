@@ -8,7 +8,10 @@ import presentation from "@/data/presentation";
   {
     Object.values(presentation.socials).map((social) => (
       <li>
-        <Link href={social.link} class="w-fit">
+        <Link
+          href={social.link}
+          class="w-fit transition-all hover:brightness-90"
+        >
           <Icon name={social.icon} class="h-10 w-10" />
         </Link>
       </li>

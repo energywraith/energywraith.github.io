@@ -1,7 +1,6 @@
 ---
 import Link from "@/components/shared/Link.astro";
 import removeTrailingSlash from "@/utils/removeTrailingSlash";
-import { GITHUB_URL } from "@/data/config";
 import { routes } from "@/data/routes";
 import presentation from "@/data/presentation";
 
@@ -27,8 +26,9 @@ const genericHamburgerLineClass =
       {
         routes.map((route) => (
           <li>
-            <a
+            <Link
               href={route.pathname}
+              target="_self"
               class="text-base"
               class:list={{
                 "underline underline-offset-8 decoration-2":
@@ -36,7 +36,7 @@ const genericHamburgerLineClass =
               }}
             >
               {route.label}
-            </a>
+            </Link>
           </li>
         ))
       }

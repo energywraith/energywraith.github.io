@@ -14,7 +14,12 @@ const target = showAsPost ? "_self" : "_blank";
 ---
 
 <article class="flex flex-1 basis-[32%] flex-col items-start">
-  <a class="relative w-full" href={href} target={target} rel="noreferrer">
+  <a
+    class="relative w-full transition-all hover:brightness-90"
+    href={href}
+    target={target}
+    rel="noreferrer"
+  >
     {
       isWorksPage && (
         <ul class="absolute bottom-0 right-0 m-2 flex gap-x-1">
@@ -36,12 +41,14 @@ const target = showAsPost ? "_self" : "_blank";
   </a>
 
   <a
-    class="mt-2 flex items-center gap-x-2"
+    class="group mt-2 flex items-center gap-x-2"
     href={href}
     target={target}
     rel="noreferrer"
   >
-    <h4 class="font-semibold text-pink-600">
+    <h4
+      class="font-semibold text-pink-600 transition-all group-hover:text-pink-700"
+    >
       {title}
     </h4>
     <ul class="flex items-center gap-x-1 text-sm">
