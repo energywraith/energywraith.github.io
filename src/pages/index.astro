@@ -9,15 +9,11 @@ import convertAsteriskToStrongTag from "@/utils/convertAsteriskToStrongTag";
 import presentation from "@/data/presentation";
 import Socials from "@/components/Socials.astro";
 import BannerHeader from "@/components/BannerHeader.astro";
-
-const posts = (await getCollection("posts")).reverse();
+import Posts from "@/components/Posts.astro";
 
 const works = (await getCollection("works")).filter(
   (work) => work.data.featured
 );
-
-const workPosts = works.filter((work) => work.data.showAsPost);
-const allPosts = [...posts, ...workPosts];
 ---
 
 <Layout>
@@ -77,32 +73,7 @@ const allPosts = [...posts, ...workPosts];
         </Link>
       </header>
 
-      <section>
-        <ul class="flex flex-col gap-4">
-          {
-            allPosts.length !== 0 &&
-              allPosts.map((post, index) => (
-                <li>
-                  <Link
-                    href={post.data.link || `/posts/${post.slug}`}
-                    target="_self"
-                    class="flex items-center gap-x-2 font-semibold"
-                  >
-                    <span class="font-bold text-pink-600">
-                      #{allPosts.length - index}
-                    </span>
-                    <span class="underline decoration-2 underline-offset-4">
-                      {post.data.headline || post.data.title}
-                    </span>
-                    {post.data.tags.map((tag) => (
-                      <span class="text-sm font-normal">{`#${tag}`}</span>
-                    ))}
-                  </Link>
-                </li>
-              ))
-          }
-        </ul>
-      </section>
+      <Posts />
     </article>
   </main>
 </Layout>

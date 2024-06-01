@@ -1,44 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Link from "@/components/shared/Link.astro";
-
-const posts = (await getCollection("posts")).reverse();
-const works = await getCollection("works");
-
-const workPosts = works.filter((work) => work.data.showAsPost);
-const allPosts = [...posts, ...workPosts];
+import Posts from "@/components/Posts.astro";
 ---
 
 <Layout title="Adam Jałocha - Blog">
   <main class="flex flex-col gap-6 pb-8">
     <h1 class="font-pattaya text-4xl">Posts</h1>
-
-    <section>
-      <ul class="flex flex-col gap-4">
-        {
-          allPosts.length !== 0 &&
-            allPosts.map((post, index) => (
-              <li>
-                <Link
-                  href={post.data.link || `/posts/${post.slug}`}
-                  target="_self"
-                  class="flex items-center gap-x-2 font-semibold"
-                >
-                  <span class="font-bold text-pink-600">
-                    #{allPosts.length - index}
-                  </span>
-                  <span class="underline decoration-2 underline-offset-4">
-                    {post.data.headline || post.data.title}
-                  </span>
-                  {post.data.tags.map((tag) => (
-                    <span class="text-sm font-normal">{`#${tag}`}</span>
-                  ))}
-                </Link>
-              </li>
-            ))
-        }
-      </ul>
-    </section>
+    <Posts />
   </main>
 </Layout>
