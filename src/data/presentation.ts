@@ -18,6 +18,7 @@ type Presentation = {
     linkedin: SocialLink;
     mail: SocialLink;
     instagram: SocialLink;
+    figma: SocialLink;
   };
   recentlyWorkedOn: Link;
   about: string[];
@@ -44,6 +45,11 @@ const presentation: Presentation = {
       icon: "github",
       label: "Github",
       link: "https://github.com/energywraith",
+    },
+    figma: {
+      icon: "figma",
+      label: "Figma",
+      link: "https://www.figma.com/@adamjalocha",
     },
     linkedin: {
       icon: "linkedin",
