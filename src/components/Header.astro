@@ -19,7 +19,7 @@ const genericHamburgerLineClass =
       role="list"
       class="nav-links fixed inset-0 left-0 top-0 z-20 flex flex-col items-center gap-6 px-6 pt-28 text-lg transition-[background-color_,opacity] duration-300"
       class:list={{
-        ["md:flex-row md:text-sm md:px-0 md:relative md:pt-0 max-md:bg-neutral-100 max-md:dark:bg-neutral-800"]: true,
+        ["md:flex-row md:text-sm md:px-0 md:relative md:pt-0 max-md:bg-black"]: true,
         ["max-md:opacity-0 max-md:group-[.expanded]:opacity-100 max-md:pointer-events-none max-md:group-[.expanded]:pointer-events-auto"]: true,
       }}
     >
@@ -29,7 +29,7 @@ const genericHamburgerLineClass =
             <Link
               href={route.pathname}
               target="_self"
-              class="text-base"
+              class="text-xl md:text-base"
               class:list={{
                 "underline underline-offset-8 decoration-2":
                   pathname.startsWith(route.pathname),

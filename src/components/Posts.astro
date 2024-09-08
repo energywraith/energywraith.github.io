@@ -18,7 +18,7 @@ const allPosts = [...posts, ...workPosts];
             <Link
               href={post.data.link || `/posts/${post.slug}`}
               target="_self"
-              class="flex items-center gap-x-2 font-semibold"
+              class="grid grid-cols-[auto_1fr] items-center gap-x-2 gap-y-2 font-semibold md:flex"
             >
               <span class="font-bold text-pink-600">
                 #{allPosts.length - index}
@@ -26,9 +26,13 @@ const allPosts = [...posts, ...workPosts];
               <span class="underline decoration-2 underline-offset-4">
                 {post.data.headline || post.data.title}
               </span>
-              {post.data.tags.map((tag) => (
-                <span class="text-sm font-normal">{`#${tag}`}</span>
-              ))}
+              <ul class="col-span-2 flex gap-x-2">
+                {post.data.tags.map((tag) => (
+                  <li>
+                    <span class="text-sm font-normal">{`#${tag}`}</span>
+                  </li>
+                ))}
+              </ul>
             </Link>
           </li>
         ))
