@@ -18,7 +18,7 @@ Check out the live demo of my portfolio [here](https://www.adamjalocha.pl/).
 
 ## 📂 Included works
 
-### *[Emotion.Miami](https://emotion.miami/)*: Nostalgic virtual operating system featuring applications with 80's vibes
+### *[Vanture.club](https://vanture.club)*: Nostalgic virtual operating system featuring applications with 80's vibes
 
 ### *[Darkrest.online](https://darkrest.online/)*: Popular game server website featuring SEO, account management, CMS
 

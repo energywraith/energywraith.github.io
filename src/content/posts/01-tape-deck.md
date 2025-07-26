@@ -125,10 +125,10 @@ Nonetheless, enjoy the sound of **good ol' cassette tape**! :)
   <source src="/tape-deck/forever-young.mp4" type="video/mp4">
 </video>
 
-## Emotion98.3
+## Vanture
 
-Have you already seen my project **[Emotion98.3](https://emotion.miami/)**? It is a web app that allows you to enter the **realm** of the **80s vibe**!
-I warmly **invite** you to [check it out](https://emotion.miami/)! I couldn't resist and have played **Emotion98.3 radio** on that HI-FI system. **Take a look** at the **video** below!
+Have you already seen my project **[Vanture](https://vanture.club)**? It is a web app that allows you to enter the **realm** of the **80s vibe**!
+I warmly **invite** you to [check it out](https://vanture.club)! I couldn't resist and have played **Vanture radio** on that HI-FI system. **Take a look** at the **video** below!
 
 <video controls>
   <source src="/tape-deck/emotion.mp4" type="video/mp4">

@@ -29,10 +29,10 @@ const presentation: Presentation = {
   title: "Hey, I’m ***Adam!***",
   profile: "/profile.webp",
   description:
-    "**Front-End Developer** with **3+** years of experience. Worked on cool stuff for companies like ***HSS***, ***Fingoweb*** and ***Trol***.",
+    "**Software Engineer**, dreamer & pixel crafter. Built cool stuff for ***HSS*** and the ***European Space Agency***. Co-creating ***vanture.club***. Cat lover & photographer 📸.",
   recentlyWorkedOn: {
-    label: "Emotion 98.3",
-    link: "https://emotion.miami/",
+    label: "Vanture",
+    link: "https://vanture.club",
     color: "accent",
   },
   about: [
