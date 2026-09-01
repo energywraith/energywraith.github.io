@@ -2,7 +2,7 @@
 id: 2
 title: "Chasing the Cosmic Glow: My Milky Way Hunting Adventure"
 publishedAt: 2025-07-26
-description: 'Explore the wonders of our galaxy as I share what the Milky Way really is and reveal my process for capturing its breathtaking beauty through night sky photography.'
+description: 'What the Milky Way actually is, plus my gear and process for photographing it.'
 slug: "milky-way"
 splashImage: "/milky-way/splash.jpeg"
 isPublish: true

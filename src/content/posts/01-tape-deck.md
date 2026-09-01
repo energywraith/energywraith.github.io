@@ -2,7 +2,7 @@
 id: 1
 title: "Breathing Life into a 30-Year-Old Tape Deck"
 publishedAt: 2024-04-25
-description: 'Rediscover the charm of vintage audio as I restore a classic tape deck, sharing tips and stories from the journey.'
+description: 'Restoring a 30-year-old Sony tape deck: diagnosing dead belts, cleaning the mechanism, and getting cassette playback working again.'
 slug: "tape-deck"
 splashImage: "/tape-deck/splash.webp"
 isPublish: true

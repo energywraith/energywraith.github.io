@@ -1,6 +1,7 @@
 ---
 import { SEO } from "astro-seo";
 import { AstroFont } from "astro-font";
+import { ViewTransitions } from "astro:transitions";
 import { SITE_URL } from "@/data/config";
 import type { HeadTags } from "@/utils/types/HeadTags";
 
@@ -50,6 +51,7 @@ const openGraph = {
       ],
     }}
   />
+  <ViewTransitions />
   <AstroFont
     config={[
       {
@@ -76,27 +78,4 @@ const openGraph = {
       },
     ]}
   />
-  <script is:inline>
-    const theme = (() => {
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("theme")
-      ) {
-        return localStorage.getItem("theme");
-      }
-
-      return "dark";
-    })();
-
-    if (theme === "light") {
-      document.documentElement.classList.remove("dark");
-    } else {
-      document.documentElement.classList.add("dark");
-    }
-
-    window.localStorage.setItem("theme", theme);
-  </script>
-  <script>
-    import "@/scripts/menu.ts";
-  </script>
 </head>

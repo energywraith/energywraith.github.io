@@ -28,7 +28,7 @@ const {
       ["cursor-pointer transition-all"]: true,
       ["flex justify-center items-center gap-x-2"]: !!icon,
       ["hover:text-neutral-300"]: !displayAsButton,
-      ["rounded-lg py-2 px-4 text-center font-semibold"]: displayAsButton,
+      ["rounded-full py-2 px-4 text-center font-semibold"]: displayAsButton,
       [buttonVariants[buttonVariant]]: displayAsButton,
       ["underline decoration-2 underline-offset-4"]: isUnderline,
     },
@@ -41,3 +41,21 @@ const {
   <slot />
   <span class="sr-only"><slot /> link</span>
 </a>
+
+<style>
+  .btn-glass::after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    height: 48%;
+    border-radius: 999px 999px 60% 60% / 999px 999px 100% 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0)
+    );
+    pointer-events: none;
+  }
+</style>

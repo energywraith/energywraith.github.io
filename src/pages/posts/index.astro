@@ -1,11 +1,15 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Posts from "@/components/Posts.astro";
+import SectionHeading from "@/components/shared/SectionHeading.astro";
+import GlassPanel from "@/components/shared/GlassPanel.astro";
 ---
 
 <Layout title="Adam Jałocha - Blog">
-  <main class="flex flex-col gap-6 pb-8">
-    <h1 class="font-pattaya text-4xl">Posts</h1>
-    <Posts />
+  <main class="flex flex-col gap-6 pb-8 pt-6">
+    <GlassPanel>
+      <SectionHeading icon="edit-3" as="h1">Posts</SectionHeading>
+      <Posts />
+    </GlassPanel>
   </main>
 </Layout>

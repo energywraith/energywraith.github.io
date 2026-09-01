@@ -2,61 +2,51 @@
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 
-type Props = {
-  isWorksPage?: boolean;
-} & CollectionEntry<"works">;
+type Props = CollectionEntry<"works">;
 
-const { data, isWorksPage } = Astro.props;
+const { data } = Astro.props;
 const { title, description, link, splashImage, tags, showAsPost } = data;
 
 const href = link;
 const target = showAsPost ? "_self" : "_blank";
+const tagList = tags.map((tag) => tag.toLowerCase()).join(",");
 ---
 
-<article class="flex flex-1 basis-[32%] flex-col items-start">
-  <a
-    class="relative w-full transition-all hover:brightness-90"
-    href={href}
-    target={target}
-    rel="noreferrer"
-  >
-    {
-      isWorksPage && (
-        <ul class="absolute bottom-0 right-0 m-2 flex gap-x-1">
-          {tags.map((tag) => (
-            <li class="rounded-full border border-neutral-600 bg-neutral-900 px-2 py-1 text-xs font-semibold shadow-xl">
-              {tag}
-            </li>
-          ))}
-        </ul>
-      )
-    }
+<article
+  class="group relative flex h-full flex-1 basis-[280px] flex-col overflow-hidden rounded-2xl border border-white/60 bg-white/50 shadow-lg shadow-cyan-950/5 backdrop-blur-md transition-all hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/20 md:basis-[32%]"
+  data-tags={tagList}
+>
+  <a class="relative block w-full overflow-hidden" href={href} target={target} rel="noreferrer">
     <Image
       src={splashImage}
-      class="max-h-[180px] w-full rounded border border-neutral-600 object-cover object-top"
+      class="h-[180px] w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
       alt={`${title} Splash Image`}
       width="308"
       height="180"
     />
   </a>
 
-  <a
-    class="group mt-2 flex flex-col gap-x-2 md:flex-row md:items-center"
-    href={href}
-    target={target}
-    rel="noreferrer"
-  >
-    <h4
-      class="font-semibold text-pink-600 transition-all group-hover:text-pink-700"
-    >
-      {title}
-    </h4>
-    <ul class="flex items-center gap-x-1 text-sm">
-      {tags.map((tag) => <li>{`#${tag}`}</li>)}
-    </ul>
-  </a>
+  <div class="flex flex-1 flex-col gap-2 p-4">
+    <a href={href} target={target} rel="noreferrer">
+      <h4
+        class="font-pattaya text-lg text-cyan-700 transition-all group-hover:text-cyan-600"
+      >
+        {title}
+      </h4>
+    </a>
 
-  <p class="mt-1 text-sm text-neutral-200">
-    {description}
-  </p>
+    <ul class="flex flex-wrap gap-1.5">
+      {
+        tags.map((tag) => (
+          <li class="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-700">
+            #{tag}
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="text-sm text-slate-600">
+      {description}
+    </p>
+  </div>
 </article>

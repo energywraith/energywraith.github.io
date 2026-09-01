@@ -9,33 +9,31 @@ const workPosts = works.filter((work) => work.data.showAsPost);
 const allPosts = [...posts, ...workPosts];
 ---
 
-<section>
-  <ul class="flex flex-col gap-4">
-    {
-      allPosts.length !== 0 &&
-        allPosts.map((post, index) => (
-          <li>
-            <Link
-              href={post.data.link || `/posts/${post.slug}`}
-              target="_self"
-              class="grid grid-cols-[auto_1fr] items-center gap-x-2 gap-y-2 font-semibold md:flex"
-            >
-              <span class="font-bold text-pink-600">
-                #{allPosts.length - index}
-              </span>
-              <span class="underline decoration-2 underline-offset-4">
-                {post.data.headline || post.data.title}
-              </span>
-              <ul class="col-span-2 flex gap-x-2">
-                {post.data.tags.map((tag) => (
-                  <li>
-                    <span class="text-sm font-normal">{`#${tag}`}</span>
-                  </li>
-                ))}
-              </ul>
-            </Link>
-          </li>
-        ))
-    }
-  </ul>
-</section>
+<ul class="relative flex flex-col divide-y divide-cyan-500/15">
+  {
+    allPosts.length !== 0 &&
+      allPosts.map((post, index) => (
+        <li>
+          <Link
+            href={post.data.link || `/posts/${post.slug}`}
+            target="_self"
+            class="group flex flex-col gap-2 rounded-xl px-2 py-3 transition-all hover:bg-cyan-500/10 sm:flex-row sm:items-center sm:gap-4"
+          >
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cyan-500/15 text-sm font-bold text-cyan-700 ring-1 ring-inset ring-cyan-500/30 transition-all group-hover:bg-cyan-500/25 group-hover:ring-cyan-500/50">
+              #{allPosts.length - index}
+            </span>
+            <span class="flex-1 font-semibold text-slate-800 underline decoration-2 underline-offset-4 decoration-transparent transition-all group-hover:decoration-cyan-500">
+              {post.data.headline || post.data.title}
+            </span>
+            <ul class="flex flex-wrap gap-1.5">
+              {post.data.tags.map((tag) => (
+                <li class="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-700">
+                  #{tag}
+                </li>
+              ))}
+            </ul>
+          </Link>
+        </li>
+      ))
+  }
+</ul>

@@ -1,6 +1,6 @@
 ---
 title: "Darkrest Online"
-description: "Popular game server website featuring SEO, account management, CMS."
+description: "Website for a game server, with SEO, account management, and a custom CMS."
 link: "https://darkrest.online/"
 splashImage: "/darkrest.webp"
 featured: true

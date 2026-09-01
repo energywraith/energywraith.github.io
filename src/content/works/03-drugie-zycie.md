@@ -1,6 +1,6 @@
 ---
 title: "Drugie Życie"
-description: 'Flyers and banners for local community promoting organ donation campaign.'
+description: 'Flyer and banner designs for a local organ donation awareness campaign.'
 slug: "drugie-zycie"
 splashImage: "/drugie-zycie/splash.webp"
 link: "/works/drugie-zycie"

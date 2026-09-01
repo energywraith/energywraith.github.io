@@ -1,0 +1,26 @@
+---
+type Props = {
+  class?: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "glass-panel relative overflow-hidden rounded-3xl border border-white/60 bg-gradient-to-b from-white/70 via-cyan-50/50 to-white/40 p-4 shadow-[0_30px_60px_-30px_rgba(6,182,212,0.45)] backdrop-blur-xl sm:p-6",
+    className,
+  ]}
+>
+  <span
+    class="pointer-events-none absolute -right-10 -top-14 h-40 w-40 rounded-full bg-cyan-300/30 blur-3xl"
+    aria-hidden="true"
+  ></span>
+  <span
+    class="pointer-events-none absolute -bottom-16 -left-12 h-36 w-36 rounded-full bg-white/60 blur-3xl"
+    aria-hidden="true"
+  ></span>
+  <div class="relative flex flex-col gap-6">
+    <slot />
+  </div>
+</div>

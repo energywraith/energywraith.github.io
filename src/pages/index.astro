@@ -4,76 +4,120 @@ import { Icon } from "astro-icon/components";
 
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import Link from "@/components/shared/Link.astro";
 import convertAsteriskToStrongTag from "@/utils/convertAsteriskToStrongTag";
 import presentation from "@/data/presentation";
 import Socials from "@/components/Socials.astro";
 import BannerHeader from "@/components/BannerHeader.astro";
 import Posts from "@/components/Posts.astro";
+import SectionHeading from "@/components/shared/SectionHeading.astro";
+import GlassPanel from "@/components/shared/GlassPanel.astro";
 
-const works = (await getCollection("works")).filter(
-  (work) => work.data.featured
-);
+const works = await getCollection("works");
 ---
 
 <Layout>
   <main class="flex flex-col gap-12 py-6">
     <article
-      class="flex flex-col items-start gap-6 md:flex-row md:items-center"
+      class="flex flex-col items-center gap-6 rounded-3xl bg-[url(/hero-sky.webp)] bg-cover bg-bottom px-6 py-16 text-center"
     >
-      <div class="flex w-full flex-1 flex-col gap-6">
-        <BannerHeader />
+      <BannerHeader />
 
-        <h2
-          class="w-auto text-xl leading-6 md:max-w-xl"
-          set:html={convertAsteriskToStrongTag(presentation.description)}
-        />
+      <h2
+        class="max-w-xl text-lg leading-7 text-slate-700 [&_strong:not(.text-cyan-600)]:font-semibold [&_strong:not(.text-cyan-600)]:text-slate-900"
+        set:html={convertAsteriskToStrongTag(presentation.description)}
+      />
 
-        <Socials />
-      </div>
-      <Icon name="smile" class="h-auto w-1/5 rotate-[30deg]" />
+      <Socials />
     </article>
 
-    <article class="flex flex-col gap-6">
-      <header class="flex w-full flex-row justify-between gap-2">
-        <h3 class="font-pattaya text-4xl">Works</h3>
-        <Link
-          href="/works"
-          target="_self"
-          displayAsButton
-          buttonVariant="accent"
+    <article>
+      <GlassPanel>
+        <header class="flex flex-col gap-3">
+          <div class="flex w-full flex-row items-center justify-between gap-2">
+            <SectionHeading icon="folder">Works</SectionHeading>
+            <div class="flex shrink-0 gap-2">
+              <button
+                type="button"
+                id="works-prev"
+                aria-label="Previous works"
+                class="btn-glass flex h-10 w-10 items-center justify-center rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-700 backdrop-blur-md transition-all hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-30"
+              >
+                <Icon name="arrow-left" class="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                id="works-next"
+                aria-label="Next works"
+                class="btn-glass flex h-10 w-10 items-center justify-center rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-700 backdrop-blur-md transition-all hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-30"
+              >
+                <Icon name="arrow-left" class="h-5 w-5 rotate-180" />
+              </button>
+            </div>
+          </div>
+          <p class="ml-[60px] text-sm italic text-slate-500">
+            A collection of things I've built. Still growing.
+          </p>
+        </header>
+        <div
+          id="works-viewport"
+          class="-mx-4 cursor-grab select-none overflow-hidden px-4 active:cursor-grabbing sm:-mx-6 sm:px-6"
         >
-          See all of <span class="underline decoration-2 underline-offset-4"
-            >my works</span
-          >!
-        </Link>
-      </header>
-      <section class="flex flex-wrap gap-x-4 gap-y-8">
-        {
-          works.length !== 0 &&
-            works.map(
-              (project) => project.data.featured && <ProjectCard {...project} />
-            )
-        }
-      </section>
+          <div class="flex -ml-4">
+            {
+              works.map((project) => (
+                <div class="min-w-0 shrink-0 basis-[280px] pl-4">
+                  <ProjectCard {...project} />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </GlassPanel>
     </article>
 
-    <article class="flex flex-col gap-6">
-      <header class="flex w-full flex-row justify-between gap-2">
-        <h3 class="font-pattaya text-4xl">Posts</h3>
-        <Link
-          href="/posts"
-          target="_self"
-          displayAsButton
-          buttonVariant="accent"
-        >
-          See all of <span class="underline decoration-2 underline-offset-4"
-            >my posts</span
-          >!
-        </Link>
-      </header>
+    <article>
+      <GlassPanel>
+        <header class="flex flex-col gap-2">
+          <SectionHeading icon="edit-3">Posts</SectionHeading>
+          <p class="ml-[60px] text-sm italic text-slate-500">
+            Notes on whatever I've been building, fixing, or shooting lately.
+          </p>
+        </header>
 
-      <Posts />
+        <Posts />
+      </GlassPanel>
     </article>
   </main>
 </Layout>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+
+  document.addEventListener("astro:page-load", () => {
+    const viewport = document.getElementById("works-viewport");
+    const prevButton = document.getElementById(
+      "works-prev"
+    ) as HTMLButtonElement | null;
+    const nextButton = document.getElementById(
+      "works-next"
+    ) as HTMLButtonElement | null;
+
+    if (!viewport || !prevButton || !nextButton) return;
+
+    const embla = EmblaCarousel(viewport, {
+      align: "start",
+      containScroll: "trimSnaps",
+      dragFree: true,
+    });
+
+    const updateButtons = () => {
+      prevButton.disabled = !embla.canScrollPrev();
+      nextButton.disabled = !embla.canScrollNext();
+    };
+
+    prevButton.addEventListener("click", () => embla.scrollPrev());
+    nextButton.addEventListener("click", () => embla.scrollNext());
+    embla.on("select", updateButtons).on("reInit", updateButtons);
+    updateButtons();
+  });
+</script>

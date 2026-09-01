@@ -29,7 +29,7 @@ const presentation: Presentation = {
   title: "Hey, I’m ***Adam!***",
   profile: "/profile.webp",
   description:
-    "**Software Engineer**, dreamer & pixel crafter. Built cool stuff for ***HSS*** and the ***European Space Agency***. Co-creating ***vanture.club***. Cat lover & photographer 📸.",
+    "**Software Engineer**, dreamer & pixel crafter. A few chapters in, now building things for the ***European Space Agency*** 🚀. Co-creating ***vanture.club***. Cat lover & photographer 📸.",
   recentlyWorkedOn: {
     label: "Vanture",
     link: "https://vanture.club",

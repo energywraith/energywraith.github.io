@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  icon: string;
+  as?: "h1" | "h3";
+};
+
+const { icon, as: Tag = "h3" } = Astro.props;
+---
+
+<div class="flex items-center gap-3">
+  <span
+    class="btn-glass flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-500/10 backdrop-blur-md shadow-[0_8px_20px_-10px_rgba(6,182,212,0.45)]"
+  >
+    <Icon name={icon} class="h-6 w-6 text-cyan-700" />
+  </span>
+  <Tag class="text-glow-cyan font-pattaya text-4xl text-slate-900">
+    <slot />
+  </Tag>
+</div>

@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .text-glow-cyan {
+    text-shadow:
+      0 0 24px rgba(6, 182, 212, 0.35),
+      0 0 2px rgba(6, 182, 212, 0.25);
+  }
+
+  .glass-panel {
+    position: relative;
+  }
+
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0) 55%
+    );
+    pointer-events: none;
+  }
+}

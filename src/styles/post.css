@@ -1,9 +1,9 @@
 .post p {
-  @apply leading-7 text-neutral-200;
+  @apply leading-7 text-slate-700;
 }
 
 .post code {
-  @apply rounded-sm bg-neutral-800 px-1 py-[2px] text-orange-500;
+  @apply rounded-sm bg-stone-200 px-1 py-[2px] text-red-600;
 }
 
 .post h2 {
@@ -12,10 +12,6 @@
 
 .post h3 {
   @apply mt-4 text-xl;
-}
-
-.post code {
-  @apply rounded-sm bg-neutral-800 px-1 py-[2px] text-red-500;
 }
 
 .post a {
@@ -40,13 +36,13 @@
 
 .post img + em,
 .post a + em {
-  @apply mt-2 block w-full text-center text-white;
+  @apply mt-2 block w-full text-center text-slate-800;
 }
 
 .post p img {
-  @apply max-h-80 w-full rounded border border-neutral-600 object-cover;
+  @apply max-h-80 w-full rounded border border-stone-300 object-cover;
 }
 
 .post strong {
-  @apply text-pink-600;
+  @apply text-cyan-600;
 }

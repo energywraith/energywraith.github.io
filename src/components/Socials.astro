@@ -2,27 +2,30 @@
 import Link from "@/components/shared/Link.astro";
 import { Icon } from "astro-icon/components";
 import presentation from "@/data/presentation";
+
+type Props = {
+  compact?: boolean;
+};
+
+const { compact = false } = Astro.props;
+const buttonSize = compact ? "h-9 w-9" : "h-12 w-12";
+const iconSize = compact ? "h-4 w-4" : "h-6 w-6";
 ---
 
-<ul class="relative flex w-fit flex-wrap gap-4">
+<ul class="mx-auto flex w-fit flex-wrap justify-center gap-3">
   {
     Object.values(presentation.socials).map((social) => (
       <li>
         <Link
           href={social.link}
-          class="w-fit transition-all hover:brightness-90"
+          class:list={[
+            "btn-glass flex items-center justify-center overflow-hidden rounded-full border border-cyan-500/40 bg-cyan-500/10 backdrop-blur-md shadow-[0_8px_20px_-10px_rgba(6,182,212,0.45)] transition-all hover:-translate-y-0.5 hover:border-cyan-500/60 hover:bg-cyan-500/20",
+            buttonSize,
+          ]}
         >
-          <Icon name={social.icon} class="h-10 w-10" />
+          <Icon name={social.icon} class:list={["text-cyan-700", iconSize]} />
         </Link>
       </li>
     ))
   }
-  <div
-    class="absolute left-full hidden translate-x-1 translate-y-3 flex-col text-pink-600 md:flex"
-  >
-    <Icon name="curved-arrow" class="h-10 w-10 -rotate-90" />
-    <h3 class="whitespace-nowrap font-pattaya text-xl">
-      You can find me there!
-    </h3>
-  </div>
 </ul>
