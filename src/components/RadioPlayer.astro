@@ -5,6 +5,25 @@ const STREAM_URL = "https://radio.vanture.club/listen/vanture/radio.mp3";
 <div
   class="mx-auto flex w-fit max-w-full items-center gap-2.5 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-1.5 text-xs text-cyan-950 shadow-[0_8px_20px_-10px_rgba(6,182,212,0.45)] backdrop-blur-md"
 >
+  <span
+    id="radio-live-dot"
+    class="hidden h-2 w-2 shrink-0 animate-pulse rounded-full bg-red-500"
+    aria-hidden="true"
+  ></span>
+
+  <a
+    href="https://vanture.club"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
+  >
+    <img
+      src="/vanture.png"
+      alt="Vanture"
+      class="h-5 w-auto [filter:brightness(0.62)_saturate(1.35)]"
+    />
+  </a>
+
   <button
     id="radio-toggle"
     type="button"
@@ -47,25 +66,6 @@ const STREAM_URL = "https://radio.vanture.club/listen/vanture/radio.mp3";
         stroke-dasharray="40 100"></circle>
     </svg>
   </button>
-
-  <a
-    href="https://vanture.club"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="shrink-0 opacity-90 transition-opacity hover:opacity-100"
-  >
-    <img
-      src="/vanture.png"
-      alt="Vanture"
-      class="h-5 w-auto [filter:brightness(0.62)_saturate(1.35)]"
-    />
-  </a>
-
-  <span
-    id="radio-live-dot"
-    class="hidden h-2 w-2 shrink-0 animate-pulse rounded-full bg-red-500"
-    aria-hidden="true"
-  ></span>
 
   <audio id="radio-audio" preload="none" class="hidden">
     <source src={STREAM_URL} type="audio/mpeg" />

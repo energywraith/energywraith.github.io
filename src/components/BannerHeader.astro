@@ -5,22 +5,29 @@
   import Typewriter from "typewriter-effect/dist/core";
   import type { TypewriterFunctionState } from "@/utils/types/typewriter";
 
-  const bannerHeader = document.getElementById("banner-header");
+  function runTypewriter() {
+    const bannerHeader = document.getElementById("banner-header");
+    if (!bannerHeader) return;
 
-  const typewriter = new Typewriter(bannerHeader, {
-    delay: 75,
-  });
+    bannerHeader.innerHTML = "";
 
-  typewriter
-    .pauseFor(500)
-    .typeString("Hey, I am ")
-    .pauseFor(300)
-    .typeString("<strong class='text-cyan-600'>Adbd</strong>")
-    .deleteChars(2)
-    .typeString("<strong class='text-cyan-600'>am!</strong>")
-    .pauseFor(850)
-    .callFunction(function (state: TypewriterFunctionState) {
-      state.elements.cursor.style.display = "none";
-    })
-    .start();
+    const typewriter = new Typewriter(bannerHeader, {
+      delay: 75,
+    });
+
+    typewriter
+      .pauseFor(500)
+      .typeString("Hey, I am ")
+      .pauseFor(300)
+      .typeString("<strong class='text-cyan-600'>Adbd</strong>")
+      .deleteChars(2)
+      .typeString("<strong class='text-cyan-600'>am!</strong>")
+      .pauseFor(850)
+      .callFunction(function (state: TypewriterFunctionState) {
+        state.elements.cursor.style.display = "none";
+      })
+      .start();
+  }
+
+  document.addEventListener("astro:page-load", runTypewriter);
 </script>
