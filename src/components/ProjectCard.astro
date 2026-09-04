@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 type Props = CollectionEntry<"works">;
 
@@ -24,6 +25,16 @@ const tagList = tags.map((tag) => tag.toLowerCase()).join(",");
       width="308"
       height="180"
     />
+    {
+      !showAsPost && (
+        <span
+          class="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-cyan-700 shadow-sm backdrop-blur-sm"
+          title="Otwiera się w nowej karcie"
+        >
+          <Icon name="external-link" class="h-3 w-3" />
+        </span>
+      )
+    }
   </a>
 
   <div class="flex flex-1 flex-col gap-2 p-4">
