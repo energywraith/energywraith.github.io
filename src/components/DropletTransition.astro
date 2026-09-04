@@ -1,0 +1,234 @@
+---
+/**
+ * DropletTransition
+ *
+ * Navigation reads as a drop hitting water: the new page spreads out in a
+ * circle from wherever the click landed, with a lit crest riding the edge.
+ *
+ * Nothing ever covers the screen. The old page is not hidden, it is opened up,
+ * so there is no moment of flat colour anywhere in the transition. The crest
+ * is not drawn by any element: the two snapshots are masked to leave a gap
+ * between them, and the ::view-transition backdrop shows through it, which
+ * keeps the band a constant width however far the circle has spread.
+ */
+---
+
+<style is:global>
+  @property --droplet-r {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 0px;
+  }
+
+  :root {
+    /* Origin and reach are written by the script below; these are the
+       fallbacks for a navigation with no pointer behind it. */
+    --droplet-x: 50vw;
+    --droplet-y: 50vh;
+    --droplet-max: 150vmax;
+
+    --droplet-duration: 1150ms;
+    /* Eases in, glides, settles. An expo curve reads as a burst here: it
+       clears half the screen in the first eighth of the animation, which
+       startles rather than spreads. */
+    --droplet-ease: cubic-bezier(0.3, 0.45, 0.25, 1);
+
+    /* Half-width of the clear gap the two masks leave between them, which is
+       what the crest shows through. Narrow at the impact, wider as the ring
+       spreads. Declared per-pseudo below, where --droplet-r is animated. */
+    --droplet-half: 10px;
+  }
+
+  /* The crest itself. It is only ever visible in the gap the masks leave. */
+  ::view-transition {
+    /* Borrowed from the page's own sky: the body background runs #cfeaf8 into
+       #e9f5fb into white, so the crest stays inside that range instead of
+       introducing a blue of its own. */
+    background: linear-gradient(180deg, #f6fcfe 0%, #e4f4fb 40%, #cbe8f6 100%);
+  }
+
+  /* Both snapshots are drawn straight, no cross-fade between them. */
+  ::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+    animation: droplet-spread var(--droplet-duration) var(--droplet-ease)
+      forwards;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 2;
+  }
+
+  @keyframes droplet-spread {
+    from {
+      --droplet-r: 0px;
+    }
+    to {
+      --droplet-r: var(--droplet-max);
+    }
+  }
+
+  /* The old page opens a hole. It fades back in just outside the crest, and
+     dips once more further out, which reads as a second, weaker ripple. */
+  ::view-transition-old(root) {
+    --droplet-half: clamp(3px, calc(var(--droplet-r) * 0.035), 10px);
+    --droplet-edge: radial-gradient(
+      circle at var(--droplet-x) var(--droplet-y),
+      transparent 0,
+      transparent calc(var(--droplet-r) + var(--droplet-half)),
+      rgba(0, 0, 0, 0.28) calc(var(--droplet-r) + var(--droplet-half) + 10px),
+      rgba(0, 0, 0, 0.72) calc(var(--droplet-r) + var(--droplet-half) + 22px),
+      #000 calc(var(--droplet-r) + var(--droplet-half) + 38px),
+      #000 calc(var(--droplet-r) + var(--droplet-half) + 66px),
+      rgba(0, 0, 0, 0.93) calc(var(--droplet-r) + var(--droplet-half) + 82px),
+      #000 calc(var(--droplet-r) + var(--droplet-half) + 104px)
+    );
+    -webkit-mask-image: var(--droplet-edge);
+    mask-image: var(--droplet-edge);
+  }
+
+  /* The new page fills the circle, its rim feathered so the crest glows into
+     it rather than butting against a hard edge. */
+  ::view-transition-new(root) {
+    --droplet-half: clamp(3px, calc(var(--droplet-r) * 0.035), 10px);
+    /* A long fade rather than a cut, so the crest bleeds into the new page
+       instead of sitting on it as a band. */
+    --droplet-edge: radial-gradient(
+      circle at var(--droplet-x) var(--droplet-y),
+      #000 0,
+      #000 calc(var(--droplet-r) - var(--droplet-half) - 30px),
+      rgba(0, 0, 0, 0.6) calc(var(--droplet-r) - var(--droplet-half) - 16px),
+      rgba(0, 0, 0, 0.2) calc(var(--droplet-r) - var(--droplet-half) - 6px),
+      transparent calc(var(--droplet-r) - var(--droplet-half))
+    );
+    -webkit-mask-image: var(--droplet-edge);
+    mask-image: var(--droplet-edge);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    ::view-transition-old(root) {
+      animation: droplet-fade-out 160ms ease-in forwards;
+    }
+
+    ::view-transition-new(root) {
+      animation: droplet-fade-in 220ms ease-out backwards;
+    }
+  }
+
+  @keyframes droplet-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes droplet-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  /* Enough slack that the crest and the trailing ripple behind it have both
+     cleared the furthest corner before the animation ends. */
+  const OVERSHOOT = 150;
+
+  /* A pointer that went down long before the navigation was not what caused
+     it: a keyboard activation or a back/forward step opens from the middle
+     instead. */
+  const POINTER_TTL = 1500;
+
+  let pointer: { x: number; y: number; at: number } | null = null;
+  let origin: { x: number; y: number; max: number } | null = null;
+
+  window.addEventListener(
+    "pointerdown",
+    (event) => {
+      pointer = { x: event.clientX, y: event.clientY, at: performance.now() };
+    },
+    { capture: true, passive: true }
+  );
+
+  function apply() {
+    if (!origin) return;
+    const style = document.documentElement.style;
+    style.setProperty("--droplet-x", `${origin.x}px`);
+    style.setProperty("--droplet-y", `${origin.y}px`);
+    style.setProperty("--droplet-max", `${origin.max}px`);
+  }
+
+  /* A view transition paints snapshots over the page, and the real document
+     underneath keeps scrolling out of sight. Anyone who reaches for the wheel
+     while the ring is still spreading is scrolling something they cannot see,
+     and the page lands wherever they got to the moment it ends. It shows up
+     worst arriving on a short page from a long one, where the scroll they
+     cannot see runs straight to the bottom.
+
+     So the first sign of a scroll hands the page back immediately. */
+  const SCROLL_KEYS = new Set([
+    "ArrowUp",
+    "ArrowDown",
+    "PageUp",
+    "PageDown",
+    "Home",
+    "End",
+    " ",
+  ]);
+
+  document.addEventListener("astro:before-swap", (event) => {
+    const transition = event.viewTransition;
+    if (!transition || typeof transition.skipTransition !== "function") return;
+
+    const handOver = () => transition.skipTransition();
+    const onKeyDown = (keyEvent: KeyboardEvent) => {
+      if (SCROLL_KEYS.has(keyEvent.key)) handOver();
+    };
+
+    window.addEventListener("wheel", handOver, { passive: true, once: true });
+    window.addEventListener("touchmove", handOver, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("keydown", onKeyDown, { passive: true });
+
+    transition.finished.finally(() => {
+      window.removeEventListener("wheel", handOver);
+      window.removeEventListener("touchmove", handOver);
+      window.removeEventListener("keydown", onKeyDown);
+    });
+  });
+
+  document.addEventListener("astro:before-preparation", () => {
+    const fresh = pointer && performance.now() - pointer.at < POINTER_TTL;
+    const x = fresh ? pointer!.x : window.innerWidth / 2;
+    const y = fresh ? pointer!.y : window.innerHeight / 2;
+
+    // Distance from the origin to the furthest corner.
+    const reach = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    origin = { x, y, max: Math.ceil(reach) + OVERSHOOT };
+    apply();
+  });
+
+  // Astro replaces every attribute on <html> during the swap, the inline
+  // custom properties included, and the running masks read them every frame.
+  document.addEventListener("astro:after-swap", apply);
+</script>

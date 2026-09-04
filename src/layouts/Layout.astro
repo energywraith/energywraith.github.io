@@ -2,12 +2,12 @@
 import Footer from "@/components/Footer.astro";
 import RadioPlayer from "@/components/RadioPlayer.astro";
 import BackHome from "@/components/shared/BackHome.astro";
+import DropletTransition from "@/components/DropletTransition.astro";
 import SEOTags from "@/components/seo/SEOTags.astro";
 import type { HeadTags } from "@/utils/types/HeadTags";
 
 import "@/styles/tailwind.css";
 import "@/styles/post.css";
-import "@/styles/page-transition.css";
 
 export type Props = HeadTags;
 
@@ -29,6 +29,7 @@ const isHome = Astro.url.pathname === "/";
     </div>
     <slot />
     <Footer />
+    <DropletTransition />
   </body>
 </html>
 

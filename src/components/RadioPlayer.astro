@@ -3,14 +3,9 @@ const STREAM_URL = "https://radio.vanture.club/listen/vanture/radio.mp3";
 ---
 
 <div
-  class="mx-auto flex w-fit max-w-full items-center gap-2.5 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-1.5 text-xs text-cyan-950 shadow-[0_8px_20px_-10px_rgba(6,182,212,0.45)] backdrop-blur-md"
+  id="radio-player"
+  class="mx-auto flex w-fit max-w-full items-center gap-2.5 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-1.5 text-xs text-cyan-950 shadow-[0_8px_20px_-10px_rgba(6,182,212,0.45)] backdrop-blur-md transition-shadow duration-500"
 >
-  <span
-    id="radio-live-dot"
-    class="hidden h-2 w-2 shrink-0 animate-pulse rounded-full bg-red-500"
-    aria-hidden="true"
-  ></span>
-
   <a
     href="https://vanture.club"
     target="_blank"
@@ -67,18 +62,76 @@ const STREAM_URL = "https://radio.vanture.club/listen/vanture/radio.mp3";
     </svg>
   </button>
 
+  <span
+    class="h-4 w-px shrink-0 rounded-full bg-cyan-500/30"
+    aria-hidden="true"
+  ></span>
+
+  <span class="group/vol flex shrink-0 items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="h-3.5 w-3.5 shrink-0 text-cyan-700"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14.5 8v8a4.5 4.5 0 0 0 2-6z"
+      ></path>
+    </svg>
+
+    <input
+      id="radio-volume"
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      aria-label="Volume"
+      style="--radio-volume: 50%"
+      class="h-1.5 w-0 shrink-0 cursor-pointer appearance-none overflow-hidden rounded-full bg-[linear-gradient(to_right,theme(colors.cyan.600)_var(--radio-volume),theme(colors.cyan.950/15)_var(--radio-volume))] opacity-0 transition-all duration-200 group-hover/vol:ml-1.5 group-hover/vol:w-16 group-hover/vol:opacity-100 group-focus-within/vol:ml-1.5 group-focus-within/vol:w-16 group-focus-within/vol:opacity-100 [&::-moz-range-thumb]:h-2.5 [&::-moz-range-thumb]:w-2.5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-cyan-700 [&::-moz-range-thumb]:shadow-sm [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cyan-700 [&::-webkit-slider-thumb]:shadow-sm"
+    />
+  </span>
+
   <audio id="radio-audio" preload="none" class="hidden">
     <source src={STREAM_URL} type="audio/mpeg" />
   </audio>
 </div>
 
+<style>
+  #radio-player.is-playing {
+    animation: radio-glow 2.4s ease-in-out infinite;
+  }
+
+  @keyframes radio-glow {
+    0%,
+    100% {
+      box-shadow: 0 8px 20px -10px rgba(6, 182, 212, 0.45);
+    }
+    50% {
+      box-shadow:
+        0 8px 26px -8px rgba(6, 182, 212, 0.75),
+        0 0 18px 1px rgba(34, 211, 238, 0.45);
+    }
+  }
+</style>
+
 <script>
+  const player = document.getElementById("radio-player")!;
   const audio = document.getElementById("radio-audio") as HTMLAudioElement;
   const button = document.getElementById("radio-toggle") as HTMLButtonElement;
   const playIcon = document.getElementById("radio-icon-play")!;
   const pauseIcon = document.getElementById("radio-icon-pause")!;
   const loadingIcon = document.getElementById("radio-icon-loading")!;
-  const liveDot = document.getElementById("radio-live-dot")!;
+  const volumeSlider = document.getElementById(
+    "radio-volume"
+  ) as HTMLInputElement;
+
+  function applyVolume() {
+    audio.volume = Number(volumeSlider.value) / 100;
+    volumeSlider.style.setProperty("--radio-volume", `${volumeSlider.value}%`);
+  }
+  applyVolume();
+  volumeSlider.addEventListener("input", applyVolume);
 
   type PlayerState = "idle" | "loading" | "playing";
 
@@ -86,7 +139,7 @@ const STREAM_URL = "https://radio.vanture.club/listen/vanture/radio.mp3";
     playIcon.classList.toggle("hidden", state !== "idle");
     loadingIcon.classList.toggle("hidden", state !== "loading");
     pauseIcon.classList.toggle("hidden", state !== "playing");
-    liveDot.classList.toggle("hidden", state !== "playing");
+    player.classList.toggle("is-playing", state === "playing");
     button.setAttribute(
       "aria-pressed",
       state === "playing" ? "true" : "false"

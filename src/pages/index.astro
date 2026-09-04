@@ -17,17 +17,23 @@ const works = await getCollection("works");
 
 <Layout>
   <main class="flex flex-col gap-12 py-6">
-    <article
-      class="flex flex-col items-center gap-6 rounded-3xl bg-[url(/hero-sky.webp)] bg-cover bg-bottom px-6 py-16 text-center"
-    >
-      <BannerHeader />
+    <article class="relative overflow-hidden rounded-3xl">
+      <div
+        id="hero-bg"
+        class="absolute inset-0 -z-10 bg-[url(/hero-sky.webp)] bg-cover bg-bottom"
+      >
+      </div>
 
-      <h2
-        class="max-w-xl text-lg leading-7 text-slate-700 [&_strong:not(.text-cyan-600)]:font-semibold [&_strong:not(.text-cyan-600)]:text-slate-900"
-        set:html={convertAsteriskToStrongTag(presentation.description)}
-      />
+      <div class="relative z-10 flex flex-col items-center gap-6 px-6 py-16 text-center">
+        <BannerHeader />
 
-      <Socials />
+        <h2
+          class="max-w-xl text-lg leading-7 text-slate-700 [&_strong:not(.text-cyan-600)]:font-semibold [&_strong:not(.text-cyan-600)]:text-slate-900"
+          set:html={convertAsteriskToStrongTag(presentation.description)}
+        />
+
+        <Socials />
+      </div>
     </article>
 
     <article>
@@ -89,6 +95,27 @@ const works = await getCollection("works");
     </article>
   </main>
 </Layout>
+
+<style>
+  #hero-bg {
+    animation: hero-drift 14s ease-in-out infinite alternate;
+  }
+
+  @keyframes hero-drift {
+    0% {
+      transform: scale(1.04) translate(0%, 0%);
+    }
+    100% {
+      transform: scale(1.08) translate(-1.5%, -2%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hero-bg {
+      animation: none;
+    }
+  }
+</style>
 
 <script>
   import EmblaCarousel from "embla-carousel";

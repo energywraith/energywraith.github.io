@@ -1,7 +1,7 @@
 ---
 import { SEO } from "astro-seo";
 import { AstroFont } from "astro-font";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import { SITE_URL } from "@/data/config";
 import type { HeadTags } from "@/utils/types/HeadTags";
 
@@ -51,7 +51,7 @@ const openGraph = {
       ],
     }}
   />
-  <ViewTransitions />
+  <ClientRouter />
   <AstroFont
     config={[
       {
