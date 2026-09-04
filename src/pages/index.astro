@@ -119,6 +119,7 @@ const works = await getCollection("works");
 
 <script>
   import EmblaCarousel from "embla-carousel";
+  import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
   document.addEventListener("astro:page-load", () => {
     const viewport = document.getElementById("works-viewport");
@@ -131,11 +132,15 @@ const works = await getCollection("works");
 
     if (!viewport || !prevButton || !nextButton) return;
 
-    const embla = EmblaCarousel(viewport, {
-      align: "start",
-      containScroll: "trimSnaps",
-      dragFree: true,
-    });
+    const embla = EmblaCarousel(
+      viewport,
+      {
+        align: "start",
+        containScroll: "trimSnaps",
+        dragFree: true,
+      },
+      [WheelGesturesPlugin()]
+    );
 
     const updateButtons = () => {
       prevButton.disabled = !embla.canScrollPrev();
