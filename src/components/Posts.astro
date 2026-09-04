@@ -2,11 +2,15 @@
 import { getCollection } from "astro:content";
 import Link from "@/components/shared/Link.astro";
 
-const posts = (await getCollection("posts")).reverse();
+const posts = await getCollection("posts");
 const works = await getCollection("works");
 
 const workPosts = works.filter((work) => work.data.showAsPost);
-const allPosts = [...posts, ...workPosts];
+const allPosts = [...posts, ...workPosts].sort(
+  (a, b) =>
+    (b.data.publishedAt?.valueOf() ?? 0) -
+    (a.data.publishedAt?.valueOf() ?? 0),
+);
 ---
 
 <ul class="relative flex flex-col divide-y divide-cyan-500/15">

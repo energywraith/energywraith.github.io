@@ -8,6 +8,7 @@ tags: ['figma', 'ui/ux', 'design']
 showAsPost: true
 headline: "Drugie Życie - How I have helped local community with designs?"
 featured: true
+publishedAt: 2024-03-31
 ---
 
 ## Campaign Focus

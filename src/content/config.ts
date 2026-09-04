@@ -27,6 +27,7 @@ const worksCollection = defineCollection({
     tags: z.array(z.string()),
     showAsPost: z.boolean().default(false),
     headline: z.string().optional(),
+    publishedAt: z.date().optional(),
   }),
 });
 
