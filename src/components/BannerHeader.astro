@@ -1,5 +1,5 @@
 <h1
-  class="relative w-full font-pattaya text-4xl tracking-wider sm:text-5xl md:text-6xl lg:text-7xl"
+  class="relative w-full font-pattaya text-4xl leading-relaxed tracking-wider sm:text-5xl md:text-6xl lg:text-7xl"
   aria-label="Hey, I am Adam!"
 >
   <span class="invisible" aria-hidden="true"
@@ -9,6 +9,14 @@
   >
   <span id="banner-header" class="absolute inset-0" aria-hidden="true"></span>
 </h1>
+
+<style>
+  #banner-header :global(.Typewriter__cursor) {
+    display: inline-block;
+    width: 0;
+    overflow: visible;
+  }
+</style>
 
 <script>
   import Typewriter from "typewriter-effect/dist/core";
