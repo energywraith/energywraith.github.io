@@ -12,7 +12,9 @@ import Posts from "@/components/Posts.astro";
 import SectionHeading from "@/components/shared/SectionHeading.astro";
 import GlassPanel from "@/components/shared/GlassPanel.astro";
 
-const works = await getCollection("works");
+const works = (await getCollection("works")).sort((a, b) =>
+  a.id.localeCompare(b.id)
+);
 ---
 
 <Layout>
